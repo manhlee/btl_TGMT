@@ -46,12 +46,12 @@ AKAZE = cv2.DescriptorMatcher_create(cv2.DescriptorMatcher_BRUTEFORCE_HAMMING)
 
 # This is an array, each of the elements is a name directory of image.
 # Dataset array
-TraingIMGArr = ["TrainingData/10000F.jpg","TrainingData/10000B.jpg",
-                "TrainingData/20000F.jpg","TrainingData/20000B.jpg",
-                "TrainingData/50000F.jpg","TrainingData/50000B.jpg",
-                "TrainingData/100000F.jpg","TrainingData/100000B.jpg",
+TraingIMGArr = ["TrainingData/10000F.png","TrainingData/10000B.png",
+                "TrainingData/20000F.png","TrainingData/20000B.png",
+                "TrainingData/50000F.png","TrainingData/50000B.png",
+                "TrainingData/100000F.png","TrainingData/100000B.png",
                 "TrainingData/200000F.jpg","TrainingData/200000B.jpg",
-                "TrainingData/500000F.jpg","TrainingData/500000B.jpg"
+                "TrainingData/500000F.png","TrainingData/500000B.png"
                 ]
 
 # Use to print to console and LCD
