@@ -1,11 +1,8 @@
 from __future__ import print_function   #Use newest way to print if has new version in future
 from __future__ import division         #Use newest way to division if has new version in future
 
-from time import sleep  #import sleep lib as delay in Microcontroller
+#from time import sleep  #import sleep lib as delay in Microcontroller
 
-
-
-#import serial           #import Serial(UART) lib , need enable hardware uart in Rasp's setting
 import os
 import numpy as np
 import cv2              #import opencv lib
@@ -29,28 +26,29 @@ Ratio = 0.90            # Rate of distance, greater will be checked easier
 
 
 # With surf and sift we can use bf or flann, akaze only use akaze
-#detector=cv2.xfeatures2d.SIFT_create()
+detector=cv2.xfeatures2d.SIFT_create()
 #detector = cv2.xfeatures2d.SURF_create()
-detector = cv2.AKAZE_create()
+#detector = cv2.AKAZE_create()
 
-#FLANN
+#FLANN----------------- use for SIFT or SURF
 FLANN_INDEX_KDITREE=0   #Procedures
 flannParam=dict(algorithm=FLANN_INDEX_KDITREE,tree=5)   #Procedures
 flann=cv2.FlannBasedMatcher(flannParam,{})  #Procedures
 
+#use SURF
 #BF
-#BF = cv2.BFMatcher()
-
-#AKAZE
-AKAZE = cv2.DescriptorMatcher_create(cv2.DescriptorMatcher_BRUTEFORCE_HAMMING)
-
+BF = cv2.BFMatcher()
+#-----------------------
+#AKAZE when use akaze
+#AKAZE = cv2.DescriptorMatcher_create(cv2.DescriptorMatcher_BRUTEFORCE_HAMMING)
+#------------------------
 # This is an array, each of the elements is a name directory of image.
 # Dataset array
 TraingIMGArr = ["TrainingData/10000F.png","TrainingData/10000B.png",
                 "TrainingData/20000F.png","TrainingData/20000B.png",
                 "TrainingData/50000F.png","TrainingData/50000B.png",
                 "TrainingData/100000F.png","TrainingData/100000B.png",
-                "TrainingData/200000F.jpg","TrainingData/200000B.jpg",
+                "TrainingData/200000F.png","TrainingData/200000B.png",
                 "TrainingData/500000F.png","TrainingData/500000B.png"
                 ]
 
@@ -60,7 +58,8 @@ PrintingElement = ["10K","10K",
                     "50K","50K",
                     "100K","100K",
                     "200K","200K",
-                    "500K","500K"
+                    "500K","500K",
+                   "Box empty"
                     ]
 
 
@@ -113,8 +112,8 @@ while(1):
           
 
             for i in range(len(TraingIMGArr)):            
-                matches=AKAZE.knnMatch(queryDesc,DesArr[i],k=2) #Procedures 
-
+                #matches=AKAZE.knnMatch(queryDesc,DesArr[i],k=2) #Procedures akaze
+                matches=BF.knnMatch(queryDesc,DesArr[i],k=2) #Procedures surf or sift
                 #print("DETECTING - " + PrintingElement[i]) #Print to console which image are being processed
            
 

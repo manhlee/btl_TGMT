@@ -8,9 +8,10 @@ import cv2              #import opencv lib
 import time
 
 # With surf and sift we can use bf or flann, akaze only use akaze
-#detector=cv2.xfeatures2d.SIFT_create() #Quite long ~60secs 68sec :)
+detector=cv2.xfeatures2d.SIFT_create() #Quite long ~60secs 68sec :)
+
 #detector = cv2.xfeatures2d.SURF_create()
-detector = cv2.AKAZE_create() # ~28s as powerpoint
+#detector = cv2.AKAZE_create() # ~28s as powerpoint
 
 # This is an array, each of the elements is a name directory of image.
 # Dataset array
@@ -18,8 +19,9 @@ TraingIMGArr = ["TrainingData/10000F.png","TrainingData/10000B.png",
                 "TrainingData/20000F.png","TrainingData/20000B.png",
                 "TrainingData/50000F.png","TrainingData/50000B.png",
                 "TrainingData/100000F.png","TrainingData/100000B.png",
-                "TrainingData/200000F.jpg","TrainingData/200000B.jpg",
+                "TrainingData/200000F.png","TrainingData/200000B.png",
                 "TrainingData/500000F.png","TrainingData/500000B.png",
+                "TrainingData/box_empty.png"
                 ]
 
 # Create an array to save all feature of dataset, this will be help to improve speed of detecting
