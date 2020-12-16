@@ -8,7 +8,7 @@ import numpy as np
 import cv2              #import opencv lib
 
 import time
-
+#mo camp
 cam = cv2.VideoCapture(0)
 
 cv2.namedWindow("input_money")
@@ -40,7 +40,7 @@ flann=cv2.FlannBasedMatcher(flannParam,{})  #Procedures
 BF = cv2.BFMatcher()
 #-----------------------
 #AKAZE when use akaze
-#AKAZE = cv2.DescriptorMatcher_create(cv2.DescriptorMatcher_BRUTEFORCE_HAMMING)
+AKAZE = cv2.DescriptorMatcher_create(cv2.DescriptorMatcher_BRUTEFORCE_HAMMING)
 #------------------------
 # This is an array, each of the elements is a name directory of image.
 # Dataset array
@@ -49,7 +49,8 @@ TraingIMGArr = ["TrainingData/10000F.png","TrainingData/10000B.png",
                 "TrainingData/50000F.png","TrainingData/50000B.png",
                 "TrainingData/100000F.png","TrainingData/100000B.png",
                 "TrainingData/200000F.png","TrainingData/200000B.png",
-                "TrainingData/500000F.png","TrainingData/500000B.png"
+                "TrainingData/500000F.png","TrainingData/500000B.png",
+                "TrainingData/box_empty.png"
                 ]
 
 # Use to print to console and LCD
@@ -88,16 +89,17 @@ while(1):
         PhotoDetect = cv2.resize(Raw_usr_img, (640,480))
         PhotoDetect=PhotoDetect[130:420,40:630]
         hsv_img = cv2.cvtColor(PhotoDetect, cv2.COLOR_BGR2HSV)   # HSV image
-        
+        #cv2.imshow("hsv_img",hsv_img)
         mask_sub1 = cv2.inRange(hsv_img , lower1, upper1)
         mask_sub2 = cv2.inRange(hsv_img , lower2, upper2)
         mask = cv2.bitwise_or(mask_sub1,mask_sub2)
+        #cv2.imshow("hsv_img",mask)
         _,contours, hierarchy = cv2.findContours(mask,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
         suma=0
         for cnt in contours:
             area = cv2.contourArea(cnt)
             suma=suma+area
-        result=suma/(PhotoDetect.shape[0]*PhotoDetect.shape[1])*100
+        result=suma/(PhotoDetect.shape[0]*PhotoDetect.shape[1])
         #print(result)
         if result>120:
             print ("PHOTO MONEY")
@@ -108,8 +110,6 @@ while(1):
         
             max_point = 0; # Max point
             index_element_arr = 0; # Index which picture are detecting or detected to print out LCD or console
-
-          
 
             for i in range(len(TraingIMGArr)):            
                 #matches=AKAZE.knnMatch(queryDesc,DesArr[i],k=2) #Procedures akaze

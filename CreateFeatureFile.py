@@ -8,8 +8,8 @@ import cv2              #import opencv lib
 import time
 
 # With surf and sift we can use bf or flann, akaze only use akaze
+#cac thuat toan
 detector=cv2.xfeatures2d.SIFT_create() #Quite long ~60secs 68sec :)
-
 #detector = cv2.xfeatures2d.SURF_create()
 #detector = cv2.AKAZE_create() # ~28s as powerpoint
 
@@ -33,6 +33,7 @@ for i in range(len(TraingIMGArr)):
     trainKP,trainDesc=detector.detectAndCompute(read_Arrimg,None) #Procedures to get feature
     DesArr.append(trainDesc) # Save to DesArr
 end = time.time()
+print("create feature success!!!")
 print(end - start) #Print out running time to console
 
 np.save("feature.npy", DesArr)
